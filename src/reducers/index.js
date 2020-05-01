@@ -8,6 +8,19 @@ import * as actions from '../actions';
 
 // BEGIN (write your solution here)
 
+const taskRemovingState = handleActions({
+  [actions.removeTaskRequest]() {
+    return 'requested';
+  },
+  [actions.removeTaskFailure]() {
+    return 'failed';
+  },
+  [actions.removeTaskSuccess]() {
+    return 'finished';
+  },
+}, 'none');
+
+
 // END
 
 const tasksFetchingState = handleActions({

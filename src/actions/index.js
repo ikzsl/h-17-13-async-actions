@@ -13,9 +13,25 @@ export const removeTaskRequest = createAction('TASK_REMOVE_REQUEST');
 export const removeTaskSuccess = createAction('TASK_REMOVE_SUCCESS');
 export const removeTaskFailure = createAction('TASK_REMOVE_FAILURE');
 
-
 // BEGIN (write your solution here)
+export const addTaskSuccess = createAction('TASK_ADD_SUCCESS');
 
+export const addTask = ({ task }) => async (dispatch) => {
+  const response = await axios.post(routes.tasksUrl(), { task });
+  dispatch(addTaskSuccess({ task: response.data }));
+};
+
+export const removeTask = (task) => async (dispatch) => {
+  dispatch(removeTaskRequest());
+  try {
+    const url = routes.taskUrl(task.id);
+    await axios.delete(url);
+    dispatch(removeTaskSuccess({ id: task.id }));
+  } catch (e) {
+    dispatch(removeTaskFailure());
+    throw e;
+  }
+};
 // END
 
 export const fetchTasks = () => async (dispatch) => {

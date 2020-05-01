@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers/index.js';
-import App from './components/App.jsx';
+import App from './components/App';
 import { fetchTasks } from './actions/index.js';
 
 /* eslint-disable no-underscore-dangle */
@@ -18,10 +18,10 @@ const store = createStore(
   reducers,
   compose(
     // BEGIN (write your solution here)
-    
+    applyMiddleware(thunk),
     // END
-    devtoolMiddleware,
-  ),
+    devtoolMiddleware
+  )
 );
 
 store.dispatch(fetchTasks());
@@ -30,5 +30,5 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('container'),
+  document.getElementById('container')
 );
